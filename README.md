@@ -6,3 +6,5 @@ Bonus drop items:
 - double speed
 - infinite food
 
+## Credits
+Sprites by eugeneloza: https://opengameart.org/content/snake-sprites-sound
