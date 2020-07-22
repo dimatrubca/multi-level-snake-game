@@ -1,4 +1,3 @@
-# Pygame template - skeleton for a new pygame project
 import pygame
 import random
 import os
@@ -34,7 +33,7 @@ EMPTY = 0
 SNAKE = 1
 WALL = 2
 RABBIT = 3
-BONUS_infinite_rabbits = 4
+BONUS_INFINITE_RABBITS = 4
 BONUS_DOUBLE_SPEED = 5
 
 # define colors
@@ -281,7 +280,7 @@ class Grid():
                     x = col * CELL_WIDTH
                     y = row * CELL_WIDTH
                     screen.blit(rabbit, (x, y))
-                elif self.grid[row][col] == BONUS_DOUBLE_SPEED or self.grid[row][col] == BONUS_infinite_rabbits:
+                elif self.grid[row][col] == BONUS_DOUBLE_SPEED or self.grid[row][col] == BONUS_INFINITE_RABBITS:
                     x = col * CELL_WIDTH - 8
                     y = row * CELL_WIDTH - 8
                     screen.blit(star, (x, y))
@@ -378,7 +377,7 @@ while running:
     if grid.cell(snake.head) == BONUS_DOUBLE_SPEED:
         double_speed_timer = DOUBLE_SPEED_TIME
         grid.set_cell(snake.head, EMPTY)
-    elif grid.cell(snake.head) == BONUS_infinite_rabbits:
+    elif grid.cell(snake.head) == BONUS_INFINITE_RABBITS:
         infinite_rabbits = True
         grid.set_cell(snake.head, EMPTY)
 
@@ -428,7 +427,7 @@ while running:
             if r < 0.0035:
                 grid.grid[row][col] = BONUS_DOUBLE_SPEED
             else:
-                grid.grid[row][col] = BONUS_infinite_rabbits
+                grid.grid[row][col] = BONUS_INFINITE_RABBITS
                 rabbit_pos = (0, 0)
 
     # Draw / render
