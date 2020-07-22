@@ -1,4 +1,4 @@
-# Multi level snake game made with PyGame
+# Snake game made with PyGame
 
 Levels: 4
 
