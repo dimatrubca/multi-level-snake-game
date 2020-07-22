@@ -1,5 +1,8 @@
 # Snake game made with PyGame
 
+![alt text](https://github.com/dimatrubca/multi-level-snake-game/blob/master/preview.png?raw=true)
+
+
 Levels: 4
 
 Bonus drop items:
