@@ -12,7 +12,7 @@ ROWS = HEIGHT//CELL_WIDTH
 COLS = WIDTH//CELL_WIDTH
 
 LEVELS = 4
-MAX_SCORE_PER_LVL = [5, 7, 9, 100]
+MAX_SCORE_PER_LVL = [90, 150, 210, 1000000]
 DOUBLE_SPEED_TIME = 80
 
 # initialize pygame and create window
@@ -299,7 +299,8 @@ def end_game(win, score):
                 screen.blit(grass, (x, y))
 
         # display score
-        text_message = FONT_LARGE.render(f'Score: {score}', 1, WHITE)
+        best = best_score(score)
+        text_message = FONT_LARGE.render(f'Score: {score}    Best: {best}', 1, WHITE)
         text_play_again = FONT_SMALL.render('Press any key to continue...', 1, WHITE)
         win.blit(text_message, ((WIDTH - text_message.get_width())//2, (HEIGHT - 3*text_message.get_height())//2))
         win.blit(text_play_again, ((WIDTH - text_play_again.get_width())//2, HEIGHT//2))
@@ -313,6 +314,26 @@ def end_game(win, score):
                 return False
 
     return True
+
+
+def best_score(score):
+    file = open('scores.txt', 'r+')
+
+    file_content = file.readlines()
+    best = 0
+
+    if file_content:
+        best = int(file_content[0])
+
+    # sees if the current score is greater than the previous best
+    if best < score:
+        file.truncate(0)
+        file.seek(0)
+        file.write(str(score))
+        best = score
+
+    file.close()
+    return best
 
 
 def draw(screen, snake, grid, score):
@@ -364,7 +385,7 @@ while running:
     # Snake head on RABBIT
     if grid.cell(snake.head) == RABBIT:
         eat_sound.play()
-        score += 1
+        score += 10 if not infinite_rabbits else 1
         grid.set_cell(snake.head, EMPTY)
 
         if not infinite_rabbits:
@@ -421,10 +442,10 @@ while running:
     if not infinite_rabbits and not double_speed_timer:
         r = random.uniform(0, 1)
 
-        if r < 0.005:
+        if r < 0.0025:
             row, col = grid.random_empty_pos()
 
-            if r < 0.0035:
+            if r < 0.0015:
                 grid.grid[row][col] = BONUS_DOUBLE_SPEED
             else:
                 grid.grid[row][col] = BONUS_INFINITE_RABBITS
